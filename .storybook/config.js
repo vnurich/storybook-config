@@ -1,31 +1,31 @@
 import { forEach } from 'ramda';
 import { configure, addParameters, } from '@storybook/react';
-import storybookTheme from './storybookTheme';
-import theme from '../components/theme';
+import theme from './storybookTheme';
+import projectTheme from '../components/theme';
 
-const viewPortList = {}; 
-theme.breakpoint && forEach(bp => {
-  viewPortList[bp] = {
+const viewports = {}; 
+projectTheme.breakpoint && forEach(bp => {
+  viewports[bp] = {
     name: `${bp}`,
     styles: {
-      width: `${theme.breakpoint[bp]}px`,
+      width: `${projectTheme.breakpoint[bp]}px`,
       height: `100%`,
     },
   };
-}, Object.keys(theme.breakpoint));
+}, Object.keys(projectTheme.breakpoint));
 
 const req = require.context('../components', true, /.stories.js$/);
 const loadStories = () => {
-  // require('./custom');
-  req.keys().forEach(filename => req(filename));
+  // require('./first');
+  forEach(filename => req(filename), req.keys());
 }
 
 addParameters({
   viewport: {
-    viewports: viewPortList,
+    viewports,
   },
   options: {
-    theme: storybookTheme,
+    theme,
   },
 });
 
