@@ -27,7 +27,7 @@ export default {
     },
   },
   
-  breakpoint: {
+  breakpoints: {
     xs: 480,
     sm: 700,
     md: 879,
